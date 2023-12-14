@@ -2,8 +2,6 @@
 
 A starter repository showing how to build a blog with the [Eleventy](https://www.11ty.dev/) site generator (using the [v2.0 release](https://www.11ty.dev/blog/eleventy-v2/)).
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/802669dd-d5f8-4d49-963d-6d57b257c2a2/deploy-status)](https://app.netlify.com/sites/eleventy-base-blog/deploys)
-
 ## Getting Started
 
 * [Want a more generic/detailed getting started guide?](https://www.11ty.dev/docs/getting-started/)
@@ -86,6 +84,7 @@ Or you can run [debug mode](https://www.11ty.dev/docs/debugging/) to see all the
 - [Netlify](https://eleventy-base-blog.netlify.com/)
 - [GitHub Pages](https://11ty.github.io/eleventy-base-blog/)
 - [Remix on Glitch](https://glitch.com/~11ty-eleventy-base-blog)
+- [Cloudflare Pages](https://eleventy-base-blog-d2a.pages.dev/)
 
 ## Deploy this to your own site
 
@@ -94,6 +93,7 @@ Deploy this Eleventy site in just a few clicks on these services:
 - [Get your own Eleventy web site on Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/11ty/eleventy-base-blog)
 - If you run Eleventy locally you can drag your `_site` folder to [`drop.netlify.com`](https://drop.netlify.com/) to upload it without using `git`.
 - [Get your own Eleventy web site on Vercel](https://vercel.com/import/project?template=11ty%2Feleventy-base-blog)
+- [Try it out on Stackblitz](https://stackblitz.com/github/11ty/eleventy-base-blog)
 - Read more about [Deploying an Eleventy project](https://www.11ty.dev/docs/deployment/) to the web.
 
 ### Implementation Notes
@@ -112,12 +112,9 @@ Deploy this Eleventy site in just a few clicks on these services:
 	- `_includes/layouts/post.njk`: the blog post template (wrapped into `base.njk`)
 - `_includes/postslist.njk` is a Nunjucks include and is a reusable component used to display a list of all the posts. `content/index.njk` has an example of how to use it.
 
-If your site enforces a Content Security Policy (as public-facing sites should), either, in `base.njk`, disable
-```html
-<style>{% getBundle "css" %}</style>
-```
-and enable
-```html
-<link rel="stylesheet" href="{% getBundleFileUrl "css" %}">
-```
-or configure the server with the CSP directive `style-src: 'unsafe-inline'` (which is less secure).
+#### Content Security Policy
+
+If your site enforces a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (as public-facing sites should), you have a few choices (pick one):
+
+1. In `base.njk`, remove `<style>{% getBundle "css" %}</style>` and uncomment `<link rel="stylesheet" href="{% getBundleFileUrl "css" %}">`
+2. Configure the server with the CSP directive `style-src: 'unsafe-inline'` (less secure).
